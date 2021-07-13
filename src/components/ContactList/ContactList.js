@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import contactAction from '../../store/constact/contact-action';
+import { deleteContact } from '../../store/constact/contact-operations';
 import styles from './ContactList.module.css';
 
 const ContactList = ({ contacts, onDeleteContact }) => (
@@ -44,7 +44,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onDeleteContact: id => dispatch(contactAction.deleteContact(id)),
+  onDeleteContact: id => dispatch(deleteContact(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
