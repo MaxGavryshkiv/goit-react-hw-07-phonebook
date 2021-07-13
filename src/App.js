@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import ContactEditor from './components/ContactEditor';
 import ContactList from './components/ContactList';
 import Finder from './components/Finder';
+import { fetchContact } from './store/constact/contact-operations';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchContact();
+  }
+
   render() {
     return (
       <>
@@ -12,13 +18,22 @@ class App extends Component {
         <ContactEditor />
         <h2>Contacts</h2>
         <Finder />
+        {this.props.isLoadingContacts && <h1>...Loading</h1>}
         <ContactList />
       </>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  isLoadingContacts: state.contact.loading,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchContact: () => dispatch(fetchContact()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 // { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
 // { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
