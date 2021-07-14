@@ -6,20 +6,10 @@ const middleware = [...getDefaultMiddleware(), logger];
 
 const store = configureStore({
   reducer: {
-    contact: contactReducer,
+    contacts: contactReducer,
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',
 });
 
 export default store;
-
-// import { createStore, combineReducers, applyMiddleware } from 'redux';
-
-//  import { composeWithDevTools } from 'redux-devtools-extension';
-
-// const rootReducer = combineReducers({
-//   contact: contactReducer,
-// });
-
-// const store = createStore(rootReducer, composeWithDevTools());

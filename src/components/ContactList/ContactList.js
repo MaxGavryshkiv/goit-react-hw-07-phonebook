@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { deleteContact } from '../../store/constact/contact-operations';
 import styles from './ContactList.module.css';
+
+import { contactOperations, contactSelectors } from '../../store/constact';
 
 const ContactList = ({ contacts, onDeleteContact }) => (
   <>
@@ -31,20 +32,12 @@ ContactList.propTypes = {
   onDeleteContact: PropTypes.func.isRequired,
 };
 
-const getVisibleContacts = (contacts, filter) => {
-  const normalizedFilter = filter.toLowerCase();
-
-  return contacts.filter(({ name }) =>
-    name.toLowerCase().includes(normalizedFilter),
-  );
-};
-
 const mapStateToProps = state => ({
-  contacts: getVisibleContacts(state.contact.items, state.contact.filter),
+  contacts: contactSelectors.getVisibleContacts(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onDeleteContact: id => dispatch(deleteContact(id)),
+  onDeleteContact: id => dispatch(contactOperations.deleteContact(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

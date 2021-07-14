@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ContactEditor from './components/ContactEditor';
 import ContactList from './components/ContactList';
 import Finder from './components/Finder';
-import { fetchContact } from './store/constact/contact-operations';
+import { contactOperations, contactSelectors } from './store/constact';
 
 class App extends Component {
   componentDidMount() {
@@ -26,11 +26,11 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoadingContacts: state.contact.loading,
+  isLoadingContacts: contactSelectors.getLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchContact: () => dispatch(fetchContact()),
+  fetchContact: () => dispatch(contactOperations.fetchContact()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

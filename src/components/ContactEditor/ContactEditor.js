@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addContact } from '../../store/constact/contact-operations';
 import styles from './ContactEditor.module.css';
 
+import { contactOperations, contactSelectors } from '../../store/constact';
 class ContactEditor extends Component {
   state = {
     name: '',
@@ -63,11 +63,12 @@ class ContactEditor extends Component {
 }
 
 const mapStateToProps = state => ({
-  contacts: state.contact.items,
+  contacts: contactSelectors.getAllContacts(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (name, number) => dispatch(addContact(name, number)),
+  onSubmit: (name, number) =>
+    dispatch(contactOperations.addContact(name, number)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactEditor);

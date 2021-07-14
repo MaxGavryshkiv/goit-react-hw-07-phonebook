@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as contactAction from '../../store/constact/contact-action';
+import { contactAction, contactSelectors } from '../../store/constact';
 
 const Finder = ({ value, onChange }) => (
   <label>
@@ -17,7 +17,7 @@ Finder.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  value: state.contact.filter,
+  value: contactSelectors.getFilter(state),
 });
 
 const mapDispatchToProps = dispatch => ({
